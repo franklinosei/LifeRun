@@ -259,13 +259,14 @@ function gameLoop() {
         if (isGamePaused) {
 
           timeout = setTimeout(() => {
+            
             isGamePaused = false;
             //   // hide questions div
             questionDiv.className = "hidden";
 
             clearTimeout(timeout);
 
-          }, 1000*30);
+          }, 1000*15);
         } 
        
       }

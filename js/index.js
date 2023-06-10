@@ -7,6 +7,10 @@ let isGamePaused = false;
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
+
+// get questions area
+const questionDiv = document.getElementById("questions-area")
+
 // set canvas dimensions
 canvas.width = 1268;
 canvas.height = 500;
@@ -217,9 +221,11 @@ function gameLoop() {
         // pause game to answer question
 
         isGamePaused = true;
-        //     keys.d.pressed = false;
 
-        //     //
+        // show questions div
+        questionDiv.className = "questions-area animate-from-right"
+
+        //     
         currentQue.question.answered = true;
 
         player.position.x += 15;
@@ -229,6 +235,9 @@ function gameLoop() {
         //     // keys.d.pressed = true;
         setTimeout(() => {
           isGamePaused = false
+
+                  // hide questions div
+        questionDiv.className = "hidden"
         }, 5000)
       }
     }
@@ -262,7 +271,7 @@ function gameLoop() {
   // }
 
   // movement logics here
-  if (keys.d.pressed) {
+  if (keys.d.pressed && !isGamePaused) {
     // // try zombie
     zombie.switchSprite("Run");
     zombie.velocity.x = 2;
@@ -294,7 +303,7 @@ function gameLoop() {
     // }
   }
 
-  if (player.velocity.y < 0) {
+  if (player.velocity.y < 0 && !isGameOver) {
     player.shouldPanCameraDown({ camera, canvas });
     if (player.lastDirection === "right") {
       player.switchSprite("Jump");

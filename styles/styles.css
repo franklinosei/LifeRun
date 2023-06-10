@@ -1,19 +1,72 @@
-
 /* remove any padding or margins */
 body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-/* #game-board {
-    position: relative;
-    
-} */
+.hidden {
+    display: none;
+}
+
+#game-board {
+  /* position: relative; */
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  /* margin: 20px; */
+  /* justify-content: space-evenly; */
+}
+
+#canvas-area {
+  flex-grow: 1;
+  width: 80%;
+}
+
+.questions-area {
+  padding: 20px;
+  width: 20%;
+  background-color: gray;
+  height: 100vh;
+}
 
 /* game background */
 
 .bg {
-    height: 100vh;
-    width: 100%;
+  height: 100vh;
+  width: 100%;
 }
+
+
+
+/* animations */
+.animate-from-right {
+    position: absolute;
+    right: 0;
+    animation: slide-in 1s forwards;
+  }
+  
+  @keyframes slide-in {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  .animate-from-left {
+    /* position: absolute; */
+    right: 0;
+    animation: slide-in 1s forwards;
+  }
+  
+  @keyframes slide-in {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  

@@ -3,17 +3,33 @@ let gameAnimID;
 let isGameOver = false;
 let isGamePaused = false;
 
+let isSubmittedAnswer = false;
+let submittedAnswer = "";
+
+let currentScore = 0;
+let highestScore = localStorage.getItem("highestScore") ?? 0;
+let questionsAnswered = 0;
+let totalQuestions = 0;
+
 // get context
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-
 // get questions area
-const questionDiv = document.getElementById("questions-area")
+const questionDiv = document.getElementById("questions-area");
+
+// hide it
+questionDiv.className = "hidden";
 
 // set canvas dimensions
 canvas.width = 1268;
 canvas.height = 500;
+
+// ============= scoreboard =======================
+const questionsAnsweredEle = document.getElementById("answered-questions");
+const totalQuestionsEle = document.getElementById("total-questions");
+const highestScoreEle = document.getElementById("highest-score");
+const currentScoreEle = document.getElementById("current-score");
 
 // ================ Physics and bg =================
 const gravity = 0.1;
@@ -165,7 +181,7 @@ const zombie = new Zombie({
 //   console.log("gen weapon")
 // }, 1000 * 5)
 
-// let currentQue = questionBlocks[currentQuestionIdx];
+let currentQuestion;
 
 function gameLoop() {
   gameAnimID = window.requestAnimationFrame(gameLoop);
@@ -182,6 +198,12 @@ function gameLoop() {
   player.update();
   zombie.update();
 
+  // update scoreboard
+  totalQuestionsEle.innerText = questionBlocks.length;
+  highestScoreEle.innerText = highestScore;
+  currentScoreEle.innerText = currentScore;
+  questionsAnsweredEle.innerText = questionsAnswered;
+
   player.velocity.x = 0;
   zombie.velocity.x = 0;
 
@@ -189,17 +211,17 @@ function gameLoop() {
   if (!isGamePaused && zombie.isReady && player.isReady) {
     // keys.d.pressed = true;
 
-        // // // try zombie
-        zombie.switchSprite("Run");
-        zombie.velocity.x = 2;
-        zombie.lastDirection = "right";
-        zombie.shouldPanCameraToTheLeft({ canvas, camera });
-    
-        // // player controls
-        player.switchSprite("Run");
-        player.velocity.x = 2;
-        player.lastDirection = "right";
-        player.shouldPanCameraToTheLeft({ canvas, camera });
+    // // // try zombie
+    zombie.switchSprite("Run");
+    zombie.velocity.x = 2;
+    zombie.lastDirection = "right";
+    zombie.shouldPanCameraToTheLeft({ canvas, camera });
+
+    // // player controls
+    player.switchSprite("Run");
+    player.velocity.x = 2;
+    player.lastDirection = "right";
+    player.shouldPanCameraToTheLeft({ canvas, camera });
   }
 
   // game over logics here
@@ -212,8 +234,6 @@ function gameLoop() {
   }
 
   questionBlocks.forEach((currentQue) => {
-    // currentQue.update()
-
     if (!currentQue.question.answered) {
       currentQue.update();
 
@@ -222,53 +242,34 @@ function gameLoop() {
 
         isGamePaused = true;
 
+        // handles display of question
+        handleQuestionDisplay(currentQue);
+
         // show questions div
-        questionDiv.className = "questions-area animate-from-right"
+        questionDiv.className = "questions-area animate-from-right";
 
-        //     
-        currentQue.question.answered = true;
+        currentQuestion = currentQue;
 
-        player.position.x += 15;
-        //     // player.camerabox.position.x += 100
+       
+       
+       
+        // setTimeout(() => {
+        //   isGamePaused = false;
 
-        // isGamePaused = false;
-        //     // keys.d.pressed = true;
-        setTimeout(() => {
-          isGamePaused = false
+        // // for testing
 
-                  // hide questions div
-        questionDiv.className = "hidden"
-        }, 5000)
+
+        // //   // hide questions div
+        //   questionDiv.className = "hidden";
+
+        //   isSubmittedAnswer = false;
+        //   submittedAnswer = "";
+        // }, 5000);
+
+
       }
     }
   });
-
-  // render questions but if question is answered already, move to next question
-  // if (!currentQue.question.answered) {
-  //   currentQue.update();
-
-  //   if (currentQue.isPlayerCollide({ player: player })) {
-  //     // pause game to answer question
-
-  //     isGamePaused = true;
-  //     keys.d.pressed = false;
-
-  //     //
-  //     currentQue.question.answered = true;
-
-  //     player.position.x += 5
-  //     // player.camerabox.position.x += 100
-
-  //     isGamePaused = false;
-  //     // keys.d.pressed = true;
-
-  //   }
-  // } else {
-  //   if (currentQuestionIdx < questionBlocks.length - 1) {
-  //     currentQuestionIdx += 1;
-  //     currentQue = questionBlocks[currentQuestionIdx];
-  //   }
-  // }
 
   // movement logics here
   if (keys.d.pressed && !isGamePaused) {
@@ -294,10 +295,11 @@ function gameLoop() {
   else if (player.velocity.y === 0) {
     if (
       // player.lastDirection === "right" &&
-       isGamePaused) {
+      isGamePaused
+    ) {
       player.switchSprite("Idle");
       zombie.switchSprite("Idle");
-    } 
+    }
     // else {
     //   player.switchSprite("IdleLeft");
     // }
@@ -321,6 +323,96 @@ function gameLoop() {
   }
 
   ctx.restore();
+}
+
+// handles values change
+// function handleChange(e) {
+//   console.log(e.target.value)
+// }
+
+// handles submitted data
+function handleSubmit() {
+  // Get the selected option
+  var selectedOption = document.querySelector(
+    'input[name="selected-answer"]:checked'
+  );
+
+  // Check if an option is selected
+  if (selectedOption) {
+    // Retrieve the value of the selected option
+    var selectedValue = selectedOption.value;
+
+    isSubmittedAnswer = true;
+    submittedAnswer = selectedValue;
+
+    if (isSubmittedAnswer) {
+      currentQuestion.question.answered = true;
+
+      questionsAnswered += 1
+
+      // console.log(submittedAnswer);
+
+      if (submittedAnswer === currentQuestion.question.answer) {
+        currentScore += 5;
+        player.position.x += 15;
+
+        isSubmittedAnswer = false;
+        submittedAnswer = "";
+      } else {
+        zombie.position.x += 15;
+      }
+    }
+
+    clearSelectedOption();
+
+    // hide div
+    questionDiv.className = "hidden";
+
+    // continue game
+    isGamePaused = false;
+  } else {
+    console.log("No option selected");
+  }
+}
+
+// handles the display of question in the game
+function handleQuestionDisplay(question) {
+  // show question
+  const questionDiv = document.getElementById("question");
+  questionDiv.innerText = question.question.question;
+
+  // show possilble answers
+  const opt1Label = document.getElementById("choice1-label");
+  const option1 = document.getElementById("choice1");
+
+  const optLabe2 = document.getElementById("choice2-label");
+  const option2 = document.getElementById("choice2");
+
+  const optLabe3 = document.getElementById("choice3-label");
+  const option3 = document.getElementById("choice3");
+
+  const optLabe4 = document.getElementById("choice4-label");
+  const option4 = document.getElementById("choice4");
+
+  opt1Label.innerText = question.question.choices[0];
+  option1.value = question.question.choices[0];
+
+  option2.value = question.question.choices[1];
+  optLabe2.innerText = question.question.choices[1];
+
+  option3.value = question.question.choices[2];
+  optLabe3.innerText = question.question.choices[2];
+
+  option4.value = question.question.choices[3];
+  optLabe4.innerText = question.question.choices[3];
+}
+
+function clearSelectedOption() {
+  // clear selectedanswer
+  const selectedOption = document.querySelector(
+    'input[name="selected-answer"]:checked'
+  );
+  selectedOption.checked = false;
 }
 
 // handles game over

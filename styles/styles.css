@@ -23,18 +23,112 @@ body {
   width: 80%;
 }
 
+
+/* questions */
+
 .questions-area {
-  padding: 20px;
-  width: 20%;
-  background-color: gray;
-  height: 100vh;
+  position: absolute;
+  padding: 20px 30px;
+  width: 30%;
+  background-color: rgb(234, 234, 234);
+  height: 70vh;
+  box-shadow: 5px 12px 50px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
+#question-answers {
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+#question-answers label {
+    /* margin-bottom: 10px; */
+    margin-left: 5px;
+    margin-bottom: 5px;
+    font-weight: 550;
+}
+
+
+#question-answers > div {
+    display: flex;
+    /* justify-content: space-between;
+    width: 100%; */
+}
+#question-answers button { 
+    padding: 12px;
+    background-color: black;
+    box-shadow: 5px 12px 50px rgba(0, 0, 0, 0.5);
+    color: white;
+    width: 50%;
+    border: none;
+    margin-top: 20px;
+    align-self: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* game background */
 
 .bg {
   height: 100vh;
   width: 100%;
+}
+
+
+/* scoreboard */
+.scoreboard {
+    background-color: #191919;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 30px 60px;
+
+  }
+  
+  .scoreboard-item {
+    text-align: center;
+    background: #272727;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  
+  .scoreboard-label {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  
+  .scoreboard-value {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+
+  /* generic classed */
+  .shadow {
+    box-shadow: 5px 12px 50px rgba(0, 0, 0, 0.5);
+  }
+.d-flex {
+    display: flex;
+}
+
+.flex-row {
+    flex-direction: row;
 }
 
 
@@ -55,18 +149,4 @@ body {
     }
   }
 
-  .animate-from-left {
-    /* position: absolute; */
-    right: 0;
-    animation: slide-in 1s forwards;
-  }
-  
-  @keyframes slide-in {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
   

@@ -17,12 +17,61 @@
 
       <!-- Questions will be shown here -->
       <div id="questions-area">
+        <!-- Question -->
+        <h3 id="question"></h3>
+
+        <!-- choices -->
+        <di id="question-answers">
+          <div class="d-flex flex-row">
+            <input id="choice1" type="radio" name="selected-answer" value="" />
+            <label id="choice1-label">
+            </label>
+          </div>
+
+          <div class="d-flex flex-row">
+            <input id="choice2" type="radio" name="selected-answer" value="" />
+            <label id="choice2-label">
+            </label>
+          </div>
+          <div class="d-flex flex-row">
+            <input id="choice3" type="radio" name="selected-answer" value="" />
+            <label id="choice3-label">
+            </label>
+          </div>
+          <div class="d-flex flex-row">
+            <input id="choice4" type="radio" name="selected-answer" value="" />
+            <label id="choice4-label">
+            </label>
+          </div>
+          
+  
+          
+            <button onclick="handleSubmit()">Submit</button>
+            <!-- <button onclick="skipChoice()">Skip</button> -->
+        
+
+        </div>
       </div>
     </div>
 
     <!-- score board -->
-    <div id="score-board">
-      <h1>Hello there</h1>
+    <div class="scoreboard shadow">
+      <div class="scoreboard-item shadow">
+        <div class="scoreboard-label">Questions Answered</div>
+        <div class="scoreboard-value" id="answered-questions">0</div>
+      </div>
+      <div class="scoreboard-item">
+        <div class="scoreboard-label">Total Questions</div>
+        <div class="scoreboard-value" id="total-questions">0</div>
+      </div>
+      <div class="scoreboard-item">
+        <div class="scoreboard-label">Highest Score</div>
+        <div class="scoreboard-value" id="highest-score">0</div>
+      </div>
+      <div class="scoreboard-item">
+        <div class="scoreboard-label">Current Score</div>
+        <div class="scoreboard-value" id="current-score">0</div>
+      </div>
     </div>
 
     <script type="text/javascript" src="js/data/questions.js"></script>

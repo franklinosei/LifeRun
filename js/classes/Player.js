@@ -1,8 +1,6 @@
 class Player extends Component {
   constructor({
     position,
-    // collisionBlocks,
-    // platformCollisionBlocks,
     imageSrc,
     frameRate,
     scale = 1,
@@ -13,13 +11,12 @@ class Player extends Component {
     // player's position on the canvas
     this.position = position;
 
+    this.isReady = false;
+
     this.velocity = {
       x: 0,
       y: 1,
     };
-
-    // this.collisionBlocks = collisionBlocks;
-    // this.platformCollisionBlocks = platformCollisionBlocks;
 
     // box around character that must touch other objects to detect collision
     this.hitbox = {
@@ -70,7 +67,7 @@ class Player extends Component {
         x: this.position.x - 50,
         y: this.position.y,
       },
-      width: 300,
+      width: 600,
       height: 80,
     };
   }
@@ -142,7 +139,7 @@ class Player extends Component {
     this.updateCamerabox();
     this.draw();
 
-    this.drawPlayerPath()
+    this.drawPlayerPath();
 
     this.position.x += this.velocity.x;
     this.updateHitbox();
@@ -156,9 +153,9 @@ class Player extends Component {
   }
 
   drawPlayerPath() {
-          // draw image of a weapon
-          ctx.fillStyle = 'rgba(0, 0, 0, 0.85)'
-          ctx.fillRect(0, canvas.height + 100, background.width, 60)
+    // draw image of a weapon
+    ctx.fillStyle = "rgba(0, 0, 0, 0.85)";
+    ctx.fillRect(0, canvas.height + 100, background.width, 60);
   }
 
   updateHitbox() {
@@ -177,18 +174,6 @@ class Player extends Component {
     this.position.y += this.velocity.y;
   }
 
-  // checkForHorizontalCollisions() {
-  //   if (
-  //     // TODO: Play around with 576
-  //     this.hitbox.position.x + this.hitbox.width + this.velocity.x >=
-  //     0
-  //   ) {
-  //     this.velocity.x = 0;
-  //   } else {
-  //     this.velocity.x -= gravity;
-  //   }
-  // }
-
   checkForVerticalCollisions() {
     if (
       // TODO: Play around with 576
@@ -198,6 +183,13 @@ class Player extends Component {
       this.velocity.y += gravity;
     } else {
       this.velocity.y = 0;
+      this.isReady = true;
     }
+  }
+
+  checkWeaponCollision() {}
+
+  checkEnemyCollision() {
+    return (collision({object1:this.hitbox, object2:zombie}))
   }
 }

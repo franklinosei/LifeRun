@@ -1,8 +1,6 @@
 class Zombie extends Component {
     constructor({
       position,
-      // collisionBlocks,
-      // platformCollisionBlocks,
       imageSrc,
       frameRate,
       scale = 1,
@@ -12,14 +10,13 @@ class Zombie extends Component {
   
       // player's position on the canvas
       this.position = position;
-  
+
+      this.isReady = false;
+
       this.velocity = {
         x: 0,
         y: 1,
       };
-  
-      // this.collisionBlocks = collisionBlocks;
-      // this.platformCollisionBlocks = platformCollisionBlocks;
   
       // box around character that must touch other objects to detect collision
       this.hitbox = {
@@ -173,7 +170,6 @@ class Zombie extends Component {
     }
   
     applyGravity() {
-      // this.velocity.y += gravity;
       this.position.y += this.velocity.y;
     }
   
@@ -188,6 +184,7 @@ class Zombie extends Component {
     //     this.velocity.x -= gravity;
     //   }
     // }
+
   
     checkForVerticalCollisions() {
       if (
@@ -198,6 +195,7 @@ class Zombie extends Component {
         this.velocity.y += gravity;
       } else {
         this.velocity.y = 0;
+        this.isReady = true;
       }
     }
   }

@@ -2,6 +2,12 @@
 let gameAnimID;
 let isGameOver = false;
 let isGamePaused = false;
+let timeout;
+
+let timeoutSecs = 1000 * 50;
+// let countdown = 1000 * 5;
+
+let countdownIntervalId;
 
 let isSubmittedAnswer = false;
 let submittedAnswer = "";
@@ -250,23 +256,18 @@ function gameLoop() {
 
         currentQuestion = currentQue;
 
+        if (isGamePaused) {
+
+          timeout = setTimeout(() => {
+            isGamePaused = false;
+            //   // hide questions div
+            questionDiv.className = "hidden";
+
+            clearTimeout(timeout);
+
+          }, 1000*30);
+        } 
        
-       
-       
-        // setTimeout(() => {
-        //   isGamePaused = false;
-
-        // // for testing
-
-
-        // //   // hide questions div
-        //   questionDiv.className = "hidden";
-
-        //   isSubmittedAnswer = false;
-        //   submittedAnswer = "";
-        // }, 5000);
-
-
       }
     }
   });
@@ -325,11 +326,6 @@ function gameLoop() {
   ctx.restore();
 }
 
-// handles values change
-// function handleChange(e) {
-//   console.log(e.target.value)
-// }
-
 // handles submitted data
 function handleSubmit() {
   // Get the selected option
@@ -348,7 +344,7 @@ function handleSubmit() {
     if (isSubmittedAnswer) {
       currentQuestion.question.answered = true;
 
-      questionsAnswered += 1
+      questionsAnswered += 1;
 
       // console.log(submittedAnswer);
 
@@ -361,6 +357,7 @@ function handleSubmit() {
       } else {
         zombie.position.x += 15;
       }
+
     }
 
     clearSelectedOption();
@@ -418,6 +415,11 @@ function clearSelectedOption() {
 // handles game over
 function gameOver() {
   cancelAnimationFrame(gameAnimID);
+
+  // save highest score
+  if (currentScore > highestScore) {
+    localStorage.setItem("highestScore", currentScore);
+  }
 }
 
 // stop game

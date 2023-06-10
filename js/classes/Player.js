@@ -187,9 +187,9 @@ class Player extends Component {
     }
   }
 
-  checkWeaponCollision() {}
+  checkWeaponCollision() {zom}
 
-  checkEnemyCollision() {
+  checkEnemyCollision({zombie}) {
     return (collision({object1:this.hitbox, object2:zombie}))
   }
 }

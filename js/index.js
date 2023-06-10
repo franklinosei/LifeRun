@@ -184,11 +184,27 @@ function gameLoop() {
   // move when characters land
   if (!isGamePaused && zombie.isReady && player.isReady) {
     // keys.d.pressed = true;
+
+        // // // try zombie
+        zombie.switchSprite("Run");
+        zombie.velocity.x = 2;
+        zombie.lastDirection = "right";
+        zombie.shouldPanCameraToTheLeft({ canvas, camera });
+    
+        // // player controls
+        player.switchSprite("Run");
+        player.velocity.x = 2;
+        player.lastDirection = "right";
+        player.shouldPanCameraToTheLeft({ canvas, camera });
   }
 
   // game over logics here
-  if (player.checkEnemyCollision()) {
+  if (player.checkEnemyCollision({ zombie: zombie.hitbox })) {
     // stop game when this is true
+    isGameOver = true;
+
+    // call game over
+    gameOver();
   }
 
   questionBlocks.forEach((currentQue) => {
@@ -200,7 +216,7 @@ function gameLoop() {
       if (currentQue.isPlayerCollide({ player: player })) {
         // pause game to answer question
 
-        //     isGamePaused = true;
+        isGamePaused = true;
         //     keys.d.pressed = false;
 
         //     //
@@ -209,8 +225,11 @@ function gameLoop() {
         player.position.x += 15;
         //     // player.camerabox.position.x += 100
 
-        //     isGamePaused = false;
+        // isGamePaused = false;
         //     // keys.d.pressed = true;
+        setTimeout(() => {
+          isGamePaused = false
+        }, 5000)
       }
     }
   });
@@ -242,9 +261,6 @@ function gameLoop() {
   //   }
   // }
 
-  // players should start running when game starts
-  // keys.d.pressed = true
-
   // movement logics here
   if (keys.d.pressed) {
     // // try zombie
@@ -258,18 +274,24 @@ function gameLoop() {
     player.velocity.x = 2;
     player.lastDirection = "right";
     player.shouldPanCameraToTheLeft({ canvas, camera });
-  } else if (keys.a.pressed) {
-    player.switchSprite("RunLeft");
-    player.velocity.x = -2;
-    player.lastDirection = "left";
-    player.shouldPanCameraToTheRight({ canvas, camera });
-  } else if (player.velocity.y === 0) {
-    if (player.lastDirection === "right") {
+  }
+
+  // else if (keys.a.pressed) {
+  //   player.switchSprite("RunLeft");
+  //   player.velocity.x = -2;
+  //   player.lastDirection = "left";
+  //   player.shouldPanCameraToTheRight({ canvas, camera });
+  // }
+  else if (player.velocity.y === 0) {
+    if (
+      // player.lastDirection === "right" &&
+       isGamePaused) {
       player.switchSprite("Idle");
       zombie.switchSprite("Idle");
-    } else {
-      player.switchSprite("IdleLeft");
-    }
+    } 
+    // else {
+    //   player.switchSprite("IdleLeft");
+    // }
   }
 
   if (player.velocity.y < 0) {
@@ -292,11 +314,17 @@ function gameLoop() {
   ctx.restore();
 }
 
-// function pauseGame() {
+// handles game over
+function gameOver() {
+  cancelAnimationFrame(gameAnimID);
+}
 
-// }
-
-gameLoop();
+// stop game
+if (isGameOver) {
+  gameOver();
+} else {
+  gameLoop();
+}
 
 window.addEventListener("keydown", (event) => {
   switch (event.key) {

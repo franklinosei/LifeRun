@@ -20,6 +20,7 @@ let totalQuestions = 0;
 const sfx = {
   jump: new Howl({
     src: ["sounds/jump.wav"],
+    volume: 0.1,
   }),
 
   correctAnswer: new Howl({
@@ -42,7 +43,7 @@ const sfx = {
 const music = {
 
   gameTrack: new Howl({
-    src: ["sounds/gameplay-track.wav"],
+    src: ["sounds/splash-soundtrack.mp3"],
     autoplay: true,
     loop: true,
     volume: 0.05,

@@ -17,6 +17,42 @@ let highestScore = localStorage.getItem("highestScore") ?? 0;
 let questionsAnswered = 0;
 let totalQuestions = 0;
 
+const sfx = {
+  jump: new Howl({
+    src: ["sounds/jump.wav"],
+  }),
+
+  correctAnswer: new Howl({
+    src: ["sounds/right-answer.wav"],
+    volume: 0.1,
+  }),
+  wrongAnswer: new Howl({
+    src: ["sounds/wrong-answer.wav"],
+    volume: 0.1,
+  }),
+  enemyCollision: new Howl({
+    src: ["sounds/enemy-collision.mp3"],
+    volume: 0.1,
+  }),
+  landedSound: new Howl({
+    src: ["sounds/landing-track.wav"],
+    // autoplay: true,
+  }),
+};
+const music = {
+
+  gameTrack: new Howl({
+    src: ["sounds/gameplay-track.wav"],
+    autoplay: true,
+    loop: true,
+    volume: 0.05,
+  }),
+
+};
+
+
+music.gameTrack.play()
+
 // get context
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -215,7 +251,13 @@ function gameLoop() {
 
   // move when characters land
   if (!isGamePaused && zombie.isReady && player.isReady) {
-    // keys.d.pressed = true;
+
+    // if (!sfx.landedSound.playing()) {
+      // sfx.landedSound.play();
+    // } else{
+    //   sfx.landedSound.stop();
+
+    // }
 
     // // // try zombie
     zombie.switchSprite("Run");
@@ -228,15 +270,18 @@ function gameLoop() {
     player.velocity.x = 2;
     player.lastDirection = "right";
     player.shouldPanCameraToTheLeft({ canvas, camera });
+    
   }
 
   // game over logics here
   if (player.checkEnemyCollision({ zombie: zombie.hitbox })) {
     // stop game when this is true
+
     isGameOver = true;
 
     // call game over
     gameOver();
+    
   }
 
   questionBlocks.forEach((currentQue) => {
@@ -257,18 +302,13 @@ function gameLoop() {
         currentQuestion = currentQue;
 
         if (isGamePaused) {
-
-          timeout = setTimeout(() => {
-            
-            isGamePaused = false;
-            //   // hide questions div
-            questionDiv.className = "hidden";
-
-            clearTimeout(timeout);
-
-          }, 1000*15);
-        } 
-       
+          // timeout = setTimeout(() => {
+          //   isGamePaused = false;
+          //   //   // hide questions div
+          //   questionDiv.className = "hidden";
+          //   clearTimeout(timeout);
+          // }, 1000*15);
+        }
       }
     }
   });
@@ -353,12 +393,17 @@ function handleSubmit() {
         currentScore += 5;
         player.position.x += 15;
 
+        if (currentScore > highestScore) {
+          localStorage.setItem("highestScore", currentScore);
+        }
+
+        sfx.correctAnswer.play();
         isSubmittedAnswer = false;
         submittedAnswer = "";
       } else {
-        zombie.position.x += 15;
+        sfx.wrongAnswer.play();
+        zombie.position.x += 40;
       }
-
     }
 
     clearSelectedOption();
@@ -415,12 +460,16 @@ function clearSelectedOption() {
 
 // handles game over
 function gameOver() {
-  cancelAnimationFrame(gameAnimID);
 
-  // save highest score
-  if (currentScore > highestScore) {
-    localStorage.setItem("highestScore", currentScore);
+  if (!music.gameTrack.playing()) {
+    music.gameTrack.stop();
   }
+
+  if (!sfx.enemyCollision.playing()) {
+    sfx.enemyCollision.play();
+  }
+
+  cancelAnimationFrame(gameAnimID);
 }
 
 // stop game
@@ -435,10 +484,14 @@ window.addEventListener("keydown", (event) => {
     case "ArrowRight":
       keys.d.pressed = true;
       break;
+
     case "ArrowLeft":
       keys.a.pressed = true;
       break;
     case "ArrowUp":
+      // play jump sound
+      sfx.jump.play();
+
       player.velocity.y = -4;
       break;
   }

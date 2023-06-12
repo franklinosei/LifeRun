@@ -41,18 +41,13 @@ const sfx = {
   }),
 };
 const music = {
-
   gameTrack: new Howl({
-    src: ["sounds/splash-soundtrack.mp3"],
+    src: ["sounds/gamplay-track.mp3"],
     autoplay: true,
     loop: true,
-    volume: 0.05,
+    volume: 0.08,
   }),
-
 };
-
-
-music.gameTrack.play()
 
 // get context
 const canvas = document.getElementById("canvas");
@@ -252,9 +247,8 @@ function gameLoop() {
 
   // move when characters land
   if (!isGamePaused && zombie.isReady && player.isReady) {
-
     // if (!sfx.landedSound.playing()) {
-      // sfx.landedSound.play();
+    // sfx.landedSound.play();
     // } else{
     //   sfx.landedSound.stop();
 
@@ -271,7 +265,6 @@ function gameLoop() {
     player.velocity.x = 2;
     player.lastDirection = "right";
     player.shouldPanCameraToTheLeft({ canvas, camera });
-    
   }
 
   // game over logics here
@@ -282,7 +275,6 @@ function gameLoop() {
 
     // call game over
     gameOver();
-    
   }
 
   questionBlocks.forEach((currentQue) => {
@@ -366,6 +358,14 @@ function gameLoop() {
   }
 
   ctx.restore();
+}
+
+// hangles start game
+function startGame() {
+  window.location.replace("http://127.0.0.1:5500/gamemode.html")
+
+  // start gameplay
+  music.gameTrack.play();
 }
 
 // handles submitted data
@@ -461,7 +461,6 @@ function clearSelectedOption() {
 
 // handles game over
 function gameOver() {
-
   if (!music.gameTrack.playing()) {
     music.gameTrack.stop();
   }
@@ -470,7 +469,17 @@ function gameOver() {
     sfx.enemyCollision.play();
   }
 
+
+  
+  
   cancelAnimationFrame(gameAnimID);
+  
+  // go to game over screen
+  window.location.replace("http://127.0.0.1:5500/gameover.html")
+  
+  document.getElementById("highestScore").textContent = highestScore;
+  document.getElementById("currentScore").textContent = currentScore;
+  document.getElementById("questionsAnswered").textContent = questionsAnswered;
 }
 
 // stop game

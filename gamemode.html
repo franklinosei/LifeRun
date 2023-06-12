@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/styles.css" />
+    <title>LifeRun</title>
+  </head>
+
+  <body>
+    <!-- Game actioins will be visible here -->
+    <div id="game-board">
+      <div id="canvas-area">
+        <canvas id="canvas" width="" height=""></canvas>
+      </div>
+
+      <!-- Questions will be shown here -->
+      <div id="questions-area">
+        <!-- timeout -->
+        <p id="countdown"></p>
+
+        <!-- Question -->
+        <h3 id="question"></h3>
+
+        <!-- choices -->
+        <div id="question-answers">
+          <div class="d-flex flex-row">
+            <input id="choice1" type="radio" name="selected-answer" value="" />
+            <label id="choice1-label"> </label>
+          </div>
+
+          <div class="d-flex flex-row">
+            <input id="choice2" type="radio" name="selected-answer" value="" />
+            <label id="choice2-label"> </label>
+          </div>
+          <div class="d-flex flex-row">
+            <input id="choice3" type="radio" name="selected-answer" value="" />
+            <label id="choice3-label"> </label>
+          </div>
+          <div class="d-flex flex-row">
+            <input id="choice4" type="radio" name="selected-answer" value="" />
+            <label id="choice4-label"> </label>
+          </div>
+
+          <button onclick="handleSubmit()">Submit</button>
+          <!-- <button onclick="skipChoice()">Skip</button> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- score board -->
+    <div class="scoreboard shadow">
+      <div class="scoreboard-item shadow">
+        <div class="scoreboard-label">Questions Answered</div>
+        <div class="scoreboard-value" id="answered-questions">0</div>
+      </div>
+      <div class="scoreboard-item">
+        <div class="scoreboard-label">Total Questions</div>
+        <div class="scoreboard-value" id="total-questions">0</div>
+      </div>
+      <div class="scoreboard-item">
+        <div class="scoreboard-label">Highest Score</div>
+        <div class="scoreboard-value" id="highest-score">0</div>
+      </div>
+      <div class="scoreboard-item">
+        <div class="scoreboard-label">Current Score</div>
+        <div class="scoreboard-value" id="current-score">0</div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
+      integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="text/javascript" src="data/questions.js"></script>
+    <script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/classes/Component.js"></script>
+    <script type="text/javascript" src="js/classes/Player.js"></script>
+    <script type="text/javascript" src="js/classes/Zombie.js"></script>
+    <script type="text/javascript" src="js/classes/Question.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+  </body>
+</html>

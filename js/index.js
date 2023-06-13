@@ -362,7 +362,7 @@ function gameLoop() {
 
 // hangles start game
 function startGame() {
-  window.location.replace("http://127.0.0.1:5500/gamemode.html")
+  window.location.replace("gamemode.html")
 
   // start gameplay
   music.gameTrack.play();
@@ -475,7 +475,7 @@ function gameOver() {
   cancelAnimationFrame(gameAnimID);
   
   // go to game over screen
-  window.location.replace("http://127.0.0.1:5500/gameover.html")
+  window.location.replace("gameover.html")
   
   document.getElementById("highestScore").textContent = highestScore;
   document.getElementById("currentScore").textContent = currentScore;

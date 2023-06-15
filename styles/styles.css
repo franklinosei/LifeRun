@@ -1,4 +1,10 @@
 /* remove any padding or margins */
+
+* {
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+
 body {
   margin: 0;
   padding: 0;

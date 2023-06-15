@@ -2,28 +2,46 @@
 <html>
   <head>
     <title>Start Game</title>
-    <link rel="stylesheet" href="/styles/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/styles/index.css" />
   </head>
   <body>
     <div class="container">
       <div class="content">
         <div class="story">
-          <h1>LifeRun</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-            lacinia dapibus enim, ut luctus nisi tincidunt vel. Suspendisse
-            potenti. Sed nec iaculis metus. Nullam tristique diam eu enim
-            pharetra varius. Vestibulum nec metus velit. Aenean dignissim sapien
-            justo, nec rutrum erat cursus ut. Sed vel dui nec ex efficitur
-            interdum.
-          </p>
+          <h1>LifeRun
+
+            <canvas id="heading" width="50" height="50"></canvas>
+
+          </h1>
+          <p>Your village has been attacked by a ferocious dinosaur.
+            Now it's up to you to defeat the dinosaur and save your village.
+            Find powerful weapons along the way and solve programming questions to weaken the dinosaur.
+            Can you become the ultimate Life Runner?</p>
         </div>
         <div class="start-button">
-          <button onclick="startGame()">Start Game</button>
+          <button id="start-button" onclick="startGame()">Start Game</button>
         </div>
       </div>
     </div>
 
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
+      integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+
+    <script type="text/javascript" src="js/classes/Player.js"></script>
+    <script type="text/javascript" src="js/gameplay.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
   </body>
 </html>

@@ -2,6 +2,13 @@
 <html>
   <head>
     <title>Game Over</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="styles/gameover.css" />
   </head>
   <body>
@@ -11,7 +18,7 @@
     <p>Current Score: <span id="currentScore">0</span></p>
     <p>Total Questions Answered: <span id="questionsAnswered">0</span></p>
 
-    <button onclick="restartGame()">Restart Game</button>
+    <button id="restartButton" onclick="restartGame()">Restart Game</button>
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"

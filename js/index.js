@@ -362,7 +362,7 @@ function gameLoop() {
 
 // hangles start game
 function startGame() {
-  window.location.replace("gamemode.html")
+  window.location.replace("gamemode.html");
 
   // start gameplay
   music.gameTrack.play();
@@ -469,17 +469,13 @@ function gameOver() {
     sfx.enemyCollision.play();
   }
 
-
-  
-  
   cancelAnimationFrame(gameAnimID);
-  
+
+  localStorage.setItem("currentScore", currentScore);
+  localStorage.setItem("questionsAnswered", questionsAnswered);
+
   // go to game over screen
-  window.location.replace("gameover.html")
-  
-  document.getElementById("highestScore").textContent = highestScore;
-  document.getElementById("currentScore").textContent = currentScore;
-  document.getElementById("questionsAnswered").textContent = questionsAnswered;
+  window.location.replace("gameover.html");
 }
 
 // stop game

@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: url("../images/background.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  height: 85vh;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  z-index: 5;
+}
+
+.content {
+  display: flex;
+  height: 100%;
+  z-index: 10;
+}
+
+.story {
+  flex: 1;
+  padding: 50px;
+  font-size: 18px;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  border-right: 1px dashed white;
+  margin: 30px 0;
+}
+
+.start-button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.start-button button {
+  padding: 10px 20px;
+  font-size: 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

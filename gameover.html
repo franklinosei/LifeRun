@@ -2,42 +2,7 @@
 <html>
   <head>
     <title>Game Over</title>
-    <link rel="stylesheet" href="styles/styles.css" />
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        background-color: #000000;
-        color: #ffffff;
-        padding: 50px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-
-      h1 {
-        color: #ff0000;
-        font-size: 40px;
-        margin-bottom: 30px;
-      }
-
-      p {
-        font-size: 20px;
-        margin-top: 10px;
-      }
-
-      button {
-        padding: 10px 20px;
-        font-size: 18px;
-        background-color: #ff0000;
-        color: #ffffff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-    </style>
+    <link rel="stylesheet" href="styles/gameover.css" />
   </head>
   <body>
     <h1>Game Over</h1>
@@ -46,6 +11,14 @@
     <p>Current Score: <span id="currentScore">0</span></p>
     <p>Total Questions Answered: <span id="questionsAnswered">0</span></p>
 
-    <button onclick="startGame()">Restart Game</button>
+    <button onclick="restartGame()">Restart Game</button>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
+      integrity="sha512-6+YN/9o9BWrk6wSfGxQGpt3EUK6XeHi6yeHV+TYD2GR0Sj/cggRpXr1BrAQf0as6XslxomMUxXp2vIl+fv0QRA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="text/javascript" src="js/gameover.js"></script>
   </body>
 </html>

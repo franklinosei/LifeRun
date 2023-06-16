@@ -268,7 +268,11 @@ function gameLoop() {
   }
 
   // game over logics here
-  if (player.checkEnemyCollision({ zombie: zombie.hitbox })) {
+  if (
+    player.checkEnemyCollision(
+      { zombie: zombie.hitbox }
+    )  || player.checkForHorizontalCanvasCollision()
+  ) {
     // stop game when this is true
 
     isGameOver = true;
@@ -515,5 +519,3 @@ window.addEventListener("keyup", (event) => {
       break;
   }
 });
-
-

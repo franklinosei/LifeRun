@@ -1,11 +1,5 @@
 class Player extends Component {
-  constructor({
-    position,
-    imageSrc,
-    frameRate,
-    scale = 1,
-    animations,
-  }) {
+  constructor({ position, imageSrc, frameRate, scale = 1, animations }) {
     super({ imageSrc, frameRate, scale });
 
     // player's position on the canvas
@@ -76,10 +70,14 @@ class Player extends Component {
   checkForHorizontalCanvasCollision() {
     if (
       // TODO: Play around with 576
-      this.hitbox.position.x + this.hitbox.width + this.velocity.x >= 576 ||
-      this.hitbox.position.x + this.velocity.x <= 0
+      this.hitbox.position.x + this.hitbox.width + this.velocity.x >=
+      background.width - 350
     ) {
       this.velocity.x = 0;
+
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -150,6 +148,8 @@ class Player extends Component {
 
     this.updateHitbox();
     this.checkForVerticalCollisions();
+
+    // this.checkForHorizontalCanvasCollision();
   }
 
   drawPlayerPath() {
@@ -176,7 +176,6 @@ class Player extends Component {
 
   checkForVerticalCollisions() {
     if (
-      // TODO: Play around with 576
       this.hitbox.position.y + this.hitbox.height + this.velocity.y <
       canvas.height + 50
     ) {
@@ -189,7 +188,7 @@ class Player extends Component {
 
   checkWeaponCollision() {}
 
-  checkEnemyCollision({zombie}) {
-    return (collision({object1:this.hitbox, object2:zombie}))
+  checkEnemyCollision({ zombie }) {
+    return collision({ object1: this.hitbox, object2: zombie });
   }
 }

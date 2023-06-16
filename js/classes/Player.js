@@ -164,7 +164,7 @@ class Player extends Component {
         x: this.position.x + 35,
         y: this.position.y + 26,
       },
-      width: 14,
+      width: 30,
       height: 27,
     };
   }
@@ -187,7 +187,7 @@ class Player extends Component {
     }
   }
 
-  checkWeaponCollision() {zom}
+  checkWeaponCollision() {}
 
   checkEnemyCollision({zombie}) {
     return (collision({object1:this.hitbox, object2:zombie}))

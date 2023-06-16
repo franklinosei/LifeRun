@@ -10,28 +10,38 @@
     />
 
     <link rel="stylesheet" href="styles/index.css" />
-
   </head>
   <body>
     <div class="container">
       <div class="content">
         <div class="story">
-          <h1>LifeRun
+          <h1>
+            LifeRun
 
             <canvas id="heading" width="50" height="50"></canvas>
-
           </h1>
-          <p>Your village has been attacked by a ferocious dinosaur.
-            Now it's up to you to defeat the dinosaur and save your village.
-            Find powerful weapons along the way and solve programming questions to weaken the dinosaur.
-            Can you become the ultimate Life Runner?</p>
+          <p>
+            Your village has been attacked by a ferocious dinosaur. Now it's up
+            to you to defeat the dinosaur and save your village. Find powerful
+            weapons along the way and solve programming questions to weaken the
+            dinosaur. Can you become the ultimate Life Runner?
+          </p>
+
+          <div class="">
+            <h2>Rules</h2>
+            <ol>
+              <li>Answer programming questions to weaken the dinosaur.</li>
+              <li>You can skip a question by jumping over it using the arrow up key.</li>
+              <!-- <li>Collect powerful weapons to enhance your abilities.</li> -->
+              <li>Defeat the dinosaur to save your village and win the game.</li>
+            </ol>
+          </div>
         </div>
         <div class="start-button">
           <button id="start-button" onclick="startGame()">Start Game</button>
         </div>
       </div>
     </div>
-
 
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"
@@ -40,11 +50,8 @@
       referrerpolicy="no-referrer"
     ></script>
 
-
     <script type="text/javascript" src="js/classes/Player.js"></script>
     <script type="text/javascript" src="js/gameplay.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-
-
   </body>
 </html>

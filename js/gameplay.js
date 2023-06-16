@@ -516,6 +516,4 @@ window.addEventListener("keyup", (event) => {
   }
 });
 
-document.getElementById("start-button").addEventListener("mouseover", () => {
-  console.log("Mouse hover");
-});
+

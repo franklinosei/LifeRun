@@ -164,7 +164,7 @@ class Zombie extends Component {
           x: this.position.x + 35,
           y: this.position.y + 26,
         },
-        width: 14,
+        width: 30,
         height: 27,
       };
     }

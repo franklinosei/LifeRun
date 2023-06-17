@@ -1,3 +1,5 @@
+
+
 // global variables to be used in the game
 let gameAnimID;
 let isGameOver = false;
